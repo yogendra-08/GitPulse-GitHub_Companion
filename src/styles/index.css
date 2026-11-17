@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens: space-separated RGB triplets so Tailwind can apply alpha. */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: 15 17 21;
+  --surface: 21 24 29;
+  --raised: 29 33 39;
+  --line: 40 45 53;
+  --line-strong: 58 64 74;
+  --ink: 233 235 238;
+  --muted: 156 163 174;
+  --faint: 122 129 140;
+  --accent: 232 162 58;
+  --accent-ink: 24 17 4;
+  --open: 63 185 80;
+  --merged: 168 122 250;
+  --closed: 248 81 73;
+  --info: 88 166 255;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: 246 247 249;
+    --surface: 255 255 255;
+    --raised: 240 242 245;
+    --line: 226 230 236;
+    --line-strong: 201 207 216;
+    --ink: 24 28 35;
+    --muted: 88 97 110;
+    --faint: 110 118 130;
+    --accent: 163 99 4;
+    --accent-ink: 255 255 255;
+    --open: 26 127 55;
+    --merged: 130 80 223;
+    --closed: 207 34 46;
+    --info: 9 105 218;
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: 246 247 249;
+  --surface: 255 255 255;
+  --raised: 240 242 245;
+  --line: 226 230 236;
+  --line-strong: 201 207 216;
+  --ink: 24 28 35;
+  --muted: 88 97 110;
+  --faint: 110 118 130;
+  --accent: 163 99 4;
+  --accent-ink: 255 255 255;
+  --open: 26 127 55;
+  --merged: 130 80 223;
+  --closed: 207 34 46;
+  --info: 9 105 218;
+}
+
+@layer base {
+  html {
+    font-family: 'Geist Variable', system-ui, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-bg text-ink text-base;
+    margin: 0;
+  }
+  * {
+    @apply border-line;
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+  /* Slim scrollbars that match the surface. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--line-strong)) transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+  .skeleton {
+    @apply rounded bg-raised;
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
+  }
+  .link {
+    @apply text-ink underline-offset-2 hover:underline;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
